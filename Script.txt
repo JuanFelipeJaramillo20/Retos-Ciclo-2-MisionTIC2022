@@ -1,0 +1,33 @@
+SELECT ID_Proyecto, Constructora, Numero_Habitaciones, Ciudad from Proyecto WHERE Numero_Habitaciones >= 2 AND Clasificacion in ('Casa');
+
+
+SELECT ID_Lider, Nombre, Primer_Apellido, Salario, Ciudad_Residencia from Lider where (Salario > (SELECT AVG(Salario) FROM Lider l) AND Ciudad_Residencia IN ('Barranquilla', 'Cartagena', 'Monteria')) ORDER BY Salario;
+
+
+SELECT p.ID_Proyecto ,
+	   mc.Nombre_Material 
+from Compra c 
+INNER JOIN MaterialConstruccion mc ON mc.ID_MaterialConstruccion = c.ID_MaterialConstruccion 
+INNER JOIN Proyecto p on p.ID_Proyecto  = c.ID_Proyecto 
+WHERE p.ID_Proyecto BETWEEN 5 AND 15 
+ORDER BY p.ID_Proyecto;
+
+
+
+SELECT p2.ID_Proyecto,
+	   c.Proveedor 
+	  from Proyecto p2 
+	  INNER JOIN Compra c ON p2.ID_Proyecto = c.ID_Proyecto 
+	 WHERE p2.Ciudad = 'Quibdo'
+	ORDER BY p2.ID_Proyecto;
+
+
+
+
+SELECT Ciudad_Residencia, 
+AVG(Salario) AS Promedio 
+FROM Lider 
+group by Ciudad_Residencia 
+HAVING  AVG(Salario) < 600000 
+ORDER BY Promedio DESC;
+
